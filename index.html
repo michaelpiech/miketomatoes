@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>miketomatoes</title>
+<meta name="description" content="Mike's movie log.">
+<meta property="og:title" content="MikeTomatoes">
+<meta name="theme-color" content="#D8281B">
+<link rel="icon" href="assets/icons/star.svg?v=4" type="image/svg+xml">
+<link rel="icon" href="assets/icons/star-48.png?v=4" sizes="48x48" type="image/png">
+<link rel="icon" href="assets/icons/star-32.png?v=4" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/icons/star-16.png?v=4" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=4">
+<script>
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const icon = document.querySelector('link[rel="icon"][type="image/svg+xml"]');
+  const open = icon.href, wink = open.replace('.svg', '-wink.svg');
+  new Image().src = wink;
+  setInterval(() => {
+    icon.href = wink;
+    setTimeout(() => { icon.href = open; }, 220);
+  }, 4500);
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&amp;family=Shrikhand&amp;display=swap">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+:root{--red:#D8281B;--ink:#121212;--paper:#FFFFFF;--banner-ink:#FFF6EC;--mute:#8A8580;--rule:#DEDAD4;--m:clamp(24px,5vw,72px);--wm-m:clamp(12px,1.6vw,28px)}
+*{box-sizing:border-box}
+html{background:var(--paper);overflow-x:clip}
+body{margin:0;color:var(--ink);font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-size:14px;line-height:1.35;-webkit-font-smoothing:antialiased}
+::selection{background:var(--red);color:var(--banner-ink)}
+a{color:inherit;text-underline-offset:3px}
+a:hover{color:var(--red)}
+.banner{display:flex;flex-direction:column;justify-content:space-between;min-height:clamp(240px,22.5vw,330px);padding:0 var(--wm-m);background:var(--red);color:var(--banner-ink);overflow:hidden}
+/* The wordmark runs close to the edges (--wm-m); everything else keeps the page margin (--m). */
+.sign{align-self:flex-end;margin:18px calc(var(--m) - var(--wm-m)) 0 0;max-width:min(330px,72vw);padding:6px 12px 8px;background:#161514;border:4px solid var(--banner-ink);outline:2px solid var(--ink);transform:rotate(-1.2deg)}
+.sign-row{display:flex;flex-wrap:wrap;justify-content:center;padding:5px 0 4px;border-bottom:2px solid #050505;box-shadow:0 1px 0 #34302C}
+.sign-row:last-child{border-bottom:0;box-shadow:none}
+.l{display:inline-block;min-width:.6em;margin:0 1px;text-align:center;font-weight:800;font-variation-settings:"wdth" 78;font-size:clamp(14px,1.45vw,20px);line-height:1;color:#F4F1EA;transform:translateY(var(--y,0)) rotate(var(--r,0deg))}
+.l.flip{transform:translateY(var(--y,0)) rotate(calc(180deg + var(--r,0deg)))}
+.sp{display:inline-block;width:.55em}
+.sign-head .l{color:#FF3B2B}
+.wm{margin:12px 0 -0.3em;font-family:Shrikhand,"Arial Black",sans-serif;font-weight:400;font-size:calc((100vw - 2 * var(--wm-m)) / 8.9);line-height:1;letter-spacing:-.02em;text-transform:uppercase;white-space:nowrap;text-shadow:.045em .045em 0 var(--ink)}
+.wm span{display:inline-block}
+html.js .wm:not(.ready){visibility:hidden}
+/* The page sits over the banner's bottom edge by 1px so no sliver of the cut wordmark can show at any zoom. */
+main{position:relative;z-index:1;margin-top:-1px;padding:25px var(--m) 72px;background:var(--paper)}
+.mh{margin:0;padding:28px 0 10px;border-bottom:2px solid var(--ink);font-size:13px;font-weight:700;color:var(--red)}
+/* The empty first and last columns inset the posters and the tomatoes equally from the rules' ends. */
+.row{display:grid;grid-template-columns:76px 64px minmax(0,1fr) minmax(0,1.7fr) 76px 76px;gap:20px;align-items:center;padding:14px 0;border-bottom:1px solid var(--rule)}
+.no{font-weight:600;font-variant-numeric:tabular-nums}
+.poster{display:block;width:64px;aspect-ratio:2/3;object-fit:cover;background:#EEEBE6}
+.film{min-width:0}
+.film h3{margin:0;font-size:20px;font-weight:600;font-variation-settings:"wdth" 88;letter-spacing:-.02em;line-height:1.1}
+.film span{color:var(--mute)}
+.rv{min-width:0}
+.rv p{margin:0;font-size:16px;line-height:1.35}
+.links{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:8px;font-size:13px}
+.links .tix{color:var(--red);font-weight:600}
+.tomato{display:block;width:76px;height:76px;margin:-8px 0}
+.empty{font-size:20px;color:var(--mute)}
+.ft{margin:0 var(--m);padding:20px 0 32px;border-top:2px solid var(--ink);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;font-size:12px;color:var(--mute)}
+@media (max-width:760px){
+  .banner{min-height:200px}
+  main{padding:16px var(--m) 56px}
+  .row{grid-template-columns:56px minmax(0,1fr) 56px;grid-template-areas:"poster film tomato" "poster rv tomato";gap:6px 14px;align-items:start}
+  .no{display:none}
+  .poster{grid-area:poster;width:56px}
+  .film{grid-area:film}
+  .film h3{font-size:18px}
+  .rv{grid-area:rv}
+  .rv p{font-size:15px}
+  .tomato-cell{grid-area:tomato}
+  .tomato{width:56px;height:56px;margin:0}
+}
+</style>
+</head>
+<body>
+<header class="banner">
+  <div class="sign" role="img" aria-label="Primetime: Return of the Killer Tomatoes!">
+    <div class="sign-row sign-head" data-text="Primetime"></div>
+    <div class="sign-board" data-titles="[&quot;Attack of the Killer Tomatoes!&quot;,&quot;Return of the Killer Tomatoes!&quot;,&quot;Killer Tomatoes Strike Back!&quot;,&quot;Killer Tomatoes Eat France!&quot;]"><noscript><div class="sign-row">Return of the Killer Tomatoes!</div></noscript></div>
+  </div>
+  <h1 class="wm"><span>MikeTomatoes</span></h1>
+</header>
+<main>
+    <section>
+      <h2 class="mh">October 2026</h2>
+      <article class="row">
+        <span class="no"></span>
+        <span class="poster"></span>
+        <div class="film"><h3>You Can See Everything</h3><span>2026</span></div>
+        <div class="rv"><p>“Three hours of watching someone get caught, and I couldn&#39;t look away.”</p></div>
+        <div class="tomato-cell"><picture><source media="(min-width: 761px)" srcset="assets/ratings/star.svg"><img class="tomato" src="assets/ratings/star-small.svg" alt="Star"></picture></div>
+      </article>
+      <article class="row">
+        <span class="no"></span>
+        <span class="poster"></span>
+        <div class="film"><h3>Eyes Wide Shut</h3><span>1999</span></div>
+        <div class="rv"><p>“Technically a Christmas movie.”</p></div>
+        <div class="tomato-cell"><picture><source media="(min-width: 761px)" srcset="assets/ratings/star.svg"><img class="tomato" src="assets/ratings/star-small.svg" alt="Star"></picture></div>
+      </article>
+      <article class="row">
+        <span class="no"></span>
+        <span class="poster"></span>
+        <div class="film"><h3>A Few Good Men</h3><span>1992</span></div>
+        <div class="rv"><p>“Worth it for the courtroom alone.”</p></div>
+        <div class="tomato-cell"><picture><source media="(min-width: 761px)" srcset="assets/ratings/fresh.svg"><img class="tomato" src="assets/ratings/fresh-small.svg" alt="Fresh"></picture></div>
+      </article>
+      <article class="row">
+        <span class="no"></span>
+        <span class="poster"></span>
+        <div class="film"><h3>Digger</h3><span>2026</span></div>
+        <div class="rv"><p>“Tom Cruise runs, and somehow it&#39;s an art film.”</p></div>
+        <div class="tomato-cell"><picture><source media="(min-width: 761px)" srcset="assets/ratings/fresh.svg"><img class="tomato" src="assets/ratings/fresh-small.svg" alt="Fresh"></picture></div>
+      </article>
+    </section>
+</main>
+<footer class="ft"><span>© 2026 MikeTomatoes</span></footer>
+<script>
+(() => {
+  const board = document.querySelector('.sign-board');
+  if (!board) return;
+  const titles = JSON.parse(board.dataset.titles);
+  const day = Math.floor(Date.now() / 86400000);
+  const title = titles[day % titles.length];
+  let seed = (day % 233280) + 1;
+  const rand = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+  const SWAPS = { I: '1', O: '0', S: '5', E: '3', B: '8', G: '6', Z: '2', A: '4' };
+  const FLIPS = { W: 'M', M: 'W' };
+  const set = (row, text, swapRate) => {
+    for (const ch of text.toUpperCase()) {
+      const tile = document.createElement('span');
+      if (ch === ' ') { tile.className = 'sp'; row.append(tile); continue; }
+      tile.className = 'l';
+      let shown = ch;
+      if (rand() < swapRate) {
+        if (SWAPS[ch]) shown = SWAPS[ch];
+        else if (FLIPS[ch]) { shown = FLIPS[ch]; tile.classList.add('flip'); }
+      }
+      tile.textContent = shown;
+      tile.style.setProperty('--r', ((rand() - 0.5) * 7).toFixed(1) + 'deg');
+      tile.style.setProperty('--y', ((rand() - 0.5) * 3).toFixed(1) + 'px');
+      row.append(tile);
+    }
+  };
+  const head = document.querySelector('.sign-head');
+  set(head, head.dataset.text, 0.5);
+  const lines = [];
+  for (const word of title.split(' ')) {
+    const last = lines[lines.length - 1];
+    if (last && (last + ' ' + word).length <= 14) lines[lines.length - 1] = last + ' ' + word;
+    else lines.push(word);
+  }
+  board.replaceChildren();
+  for (const line of lines) {
+    const row = document.createElement('div');
+    row.className = 'sign-row';
+    set(row, line, 0.4);
+    board.append(row);
+  }
+  board.closest('.sign').setAttribute('aria-label', 'Primetime: ' + title);
+})();
+</script>
+<script>
+{
+  const el = document.querySelector('.wm');
+  if (el) {
+    const fit = () => {
+      el.style.fontSize = '100px';
+      el.style.fontSize = (100 * el.clientWidth / (el.firstElementChild.getBoundingClientRect().width + 0.045 * 100)) + 'px';
+      el.classList.add('ready');
+    };
+    document.fonts.ready.then(fit);
+    addEventListener('resize', fit);
+  }
+}
+</script>
+</body>
+</html>
