@@ -28,6 +28,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&amp;family=Shrikhand&amp;display=swap">
 <script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="assets/marquee/marquee.css?v=20261023">
 <style>
 :root{--red:#D8281B;--ink:#121212;--paper:#FFFFFF;--banner-ink:#FFF6EC;--mute:#8A8580;--rule:#DEDAD4;--m:clamp(24px,5vw,72px);--wm-m:clamp(12px,1.6vw,28px)}
 *{box-sizing:border-box}
@@ -38,14 +39,8 @@ a{color:inherit;text-underline-offset:3px}
 a:hover{color:var(--red)}
 .banner{display:flex;flex-direction:column;justify-content:space-between;min-height:clamp(240px,22.5vw,330px);padding:0 var(--wm-m);background:var(--red);color:var(--banner-ink);overflow:hidden}
 /* The wordmark runs close to the edges (--wm-m); everything else keeps the page margin (--m). */
-/* Cinema marquee: a lit white panel in a black frame, letters on rails, header row in red. */
-.sign{align-self:flex-end;margin:16px calc(var(--m) - var(--wm-m)) 0 0;max-width:min(230px,62vw);padding:2px 9px 3px;background:#FBF8EE;border:3px solid var(--ink);box-shadow:0 0 0 2px var(--banner-ink)}
-.sign-row{display:flex;flex-wrap:wrap;justify-content:center;padding:3px 0 2px;border-bottom:1px solid #C9C2B4}
-.sign-row:last-child{border-bottom:0}
-.l{display:inline-block;min-width:.56em;margin:0 .5px;text-align:center;font-weight:800;font-variation-settings:"wdth" 74;font-size:clamp(11px,1vw,14px);line-height:1;color:#141312}
-.l.flip{transform:rotate(180deg)}
-.sp{display:inline-block;width:.45em}
-.sign-head .l{color:var(--red)}
+/* Approved clear-card cinema sign, kept small in the banner corner. */
+.banner .mt-marquee{align-self:flex-end;flex:none;width:260px;max-width:calc(100% - 2 * (var(--m) - var(--wm-m)));margin:12px calc(var(--m) - var(--wm-m)) 0 0}
 .wm{margin:12px 0 -0.3em;font-family:Shrikhand,"Arial Black",sans-serif;font-weight:400;font-size:calc((100vw - 2 * var(--wm-m)) / 8.9);line-height:1;letter-spacing:-.02em;text-transform:uppercase;white-space:nowrap;text-shadow:.045em .045em 0 var(--ink)}
 .wm span{display:inline-block}
 html.js .wm:not(.ready){visibility:hidden}
@@ -86,9 +81,9 @@ main{position:relative;z-index:1;margin-top:-1px;padding:25px var(--m) 72px;back
 </head>
 <body>
 <header class="banner">
-  <div class="sign" role="img" aria-label="Primetime: Return of the Killer Tomatoes!">
-    <div class="sign-row sign-head" data-text="Primetime"></div>
-    <div class="sign-board" data-titles="[&quot;Attack of the Killer Tomatoes!&quot;,&quot;Return of the Killer Tomatoes!&quot;,&quot;Killer Tomatoes Strike Back!&quot;,&quot;Killer Tomatoes Eat France!&quot;]"><noscript><div class="sign-row">Return of the Killer Tomatoes!</div></noscript></div>
+  <div class="mt-marquee" role="img" aria-label="NOW SHOWING: Primetime" data-title="Primetime">
+    <img class="mt-frame" src="assets/marquee/frame.svg" alt="" aria-hidden="true">
+    <div class="mt-window" aria-hidden="true"><div class="mt-heading">NOW SHOWING</div><div class="mt-title">Primetime</div></div>
   </div>
   <h1 class="wm"><span>MikeTomatoes</span></h1>
 </header>
@@ -126,49 +121,8 @@ main{position:relative;z-index:1;margin-top:-1px;padding:25px var(--m) 72px;back
     </section>
 </main>
 <footer class="ft"><span>© 2026 MikeTomatoes</span></footer>
-<script>
-(() => {
-  const board = document.querySelector('.sign-board');
-  if (!board) return;
-  const titles = JSON.parse(board.dataset.titles);
-  const day = Math.floor(Date.now() / 86400000);
-  const title = titles[day % titles.length];
-  let seed = (day % 233280) + 1;
-  const rand = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
-  const SWAPS = { O: '0', I: '1', S: '5', W: 'M', M: 'W' };
-  const head = document.querySelector('.sign-head');
-  const lines = [];
-  for (const word of title.toUpperCase().split(' ')) {
-    const last = lines[lines.length - 1];
-    if (last && (last + ' ' + word).length <= 16) lines[lines.length - 1] = last + ' ' + word;
-    else lines.push(word);
-  }
-  const rows = [{ el: head, text: head.dataset.text.toUpperCase() }].concat(lines.map((text) => {
-    const el = document.createElement('div');
-    el.className = 'sign-row';
-    return { el, text };
-  }));
-  const spots = [];
-  rows.forEach((row, r) => [...row.text].forEach((ch, i) => { if (SWAPS[ch]) spots.push(r + ':' + i); }));
-  const swapped = new Set();
-  for (let n = Math.min(2, spots.length); n > 0; n--) swapped.add(spots.splice(Math.floor(rand() * spots.length), 1)[0]);
-  rows.forEach((row, r) => {
-    [...row.text].forEach((ch, i) => {
-      const tile = document.createElement('span');
-      if (ch === ' ') { tile.className = 'sp'; row.el.append(tile); return; }
-      tile.className = 'l';
-      tile.textContent = ch;
-      if (swapped.has(r + ':' + i)) {
-        tile.textContent = SWAPS[ch];
-        if (ch === 'W' || ch === 'M') tile.classList.add('flip');
-      }
-      row.el.append(tile);
-    });
-  });
-  board.replaceChildren(...rows.slice(1).map((row) => row.el));
-  board.closest('.sign').setAttribute('aria-label', 'Primetime: ' + title);
-})();
-</script>
+<script src="assets/marquee/marquee.js?v=20261023"></script>
+<script>document.querySelectorAll('.mt-marquee').forEach(el => MikeMarquee.mount(el, { title: el.dataset.title }));</script>
 <script>
 {
   const el = document.querySelector('.wm');

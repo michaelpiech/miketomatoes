@@ -1,0 +1,19 @@
+.mt-marquee{position:relative;display:block;width:min(330px,100%);aspect-ratio:5/3;isolation:isolate;transform:rotate(1deg);--rail:#BDA995;--rail-highlight:#FFFDF8;--card-edge:rgba(93,70,48,.18);--card-glint:rgba(255,255,255,.65);color:#121212;font-family:Arial,sans-serif}
+.mt-frame{display:block;width:100%;height:100%;pointer-events:none;user-select:none}
+.mt-window{position:absolute;left:10%;top:25%;width:80%;height:62.5%;box-sizing:border-box;padding:2% 2.5%;display:flex;flex-direction:column;align-items:stretch;overflow:hidden}
+.mt-heading{position:relative;flex:0 0 23%;display:flex;align-items:center;justify-content:center;color:#D8281B;font-size:clamp(10px,2vw,18px);font-weight:900;line-height:1;white-space:nowrap}
+.mt-title{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:0;font-weight:900;line-height:1.18;text-align:center}
+.mt-row{position:relative;width:100%;display:flex;flex:none;justify-content:center;align-items:center;height:1.23em;white-space:nowrap}
+.mt-letter{position:relative;height:1.18em;display:inline-flex;justify-content:center;align-items:center;width:.7em;flex:none;line-height:1;transform:none}
+.mt-glyph{display:block;font-family:"Arial Black",Arial,sans-serif;font-weight:900;transform:scaleX(.82)}
+.mt-space{width:.42em;flex:none}
+.mt-marquee[data-theme="dark"]{color:#FFF6EC;--rail:#5E5549;--rail-highlight:#27241F;--card-edge:rgba(255,246,236,.18);--card-glint:rgba(255,255,255,.1)}
+.mt-marquee[data-theme="dark"] .mt-heading{position:relative;color:#F2B01E}
+@media(prefers-reduced-motion:reduce){.mt-marquee *{transition:none;animation:none}}
+
+/* Shallow paired rails hold each straight row of removable letter cards. */
+.mt-row::before,.mt-row::after,.mt-heading::after{content:"";position:absolute;left:0;right:0;height:1px;background:var(--rail);box-shadow:0 1px 0 var(--rail-highlight);pointer-events:none}
+.mt-row::before{top:0}.mt-row::after,.mt-heading::after{bottom:0}
+
+/* Clear plastic cards: transparent faces, fine edges and a tiny inner glint. */
+.mt-letter::before{content:"";position:absolute;inset:0 .025em;border:1px solid var(--card-edge);border-radius:1px;background:transparent;box-shadow:inset 1px 0 0 var(--card-glint);pointer-events:none}
