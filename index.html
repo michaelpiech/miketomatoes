@@ -80,19 +80,26 @@ main{position:relative;z-index:1;margin-top:-1px;padding:25px var(--m) 72px;back
 .empty{font-size:20px;color:var(--mute)}
 .ft{margin:0 var(--m);padding:20px 0 32px;border-top:2px solid var(--ink);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;font-size:12px;color:var(--mute)}
 .ft .pp{margin-left:auto;font-size:10px;text-decoration:none}
+/* Tablet: drop the empty inset columns so the title and quote keep their width. */
+@media (min-width:761px) and (max-width:1100px){
+  .row{grid-template-columns:72px minmax(0,1fr) minmax(0,1.6fr) 76px;gap:24px}
+  .no{display:none}
+  .rv{padding-right:16px}
+}
 @media (max-width:760px){
   .banner{min-height:200px}
   .banner .mt-marquee{width:210px}
   main{padding:16px var(--m) 56px}
-  .row{grid-template-columns:60px minmax(0,1fr) 56px;grid-template-areas:"poster film tomato" "poster rv tomato";gap:6px 14px;align-items:start}
+  /* Phone: poster, title and tomato on one line; the quote gets the full width underneath. */
+  .row{grid-template-columns:64px minmax(0,1fr) 60px;grid-template-areas:"poster film tomato" "rv rv rv";gap:16px 16px;align-items:center;padding:24px 0}
   .no{display:none}
-  .poster{grid-area:poster;width:60px;padding:2px;box-shadow:3px 3px 0 var(--ink)}
+  .poster{grid-area:poster;width:64px;padding:2px;box-shadow:3px 3px 0 var(--ink)}
   .film{grid-area:film}
-  .film h3{font-size:18px}
-  .rv{grid-area:rv;padding-right:10px}
-  .rv p{font-size:15px}
+  .film h3{font-size:19px}
+  .rv{grid-area:rv;padding-right:0}
+  .rv p{font-size:16px;line-height:1.45}
   .tomato-cell{grid-area:tomato}
-  .tomato{width:56px;height:56px;margin:0}
+  .tomato{width:60px;height:60px;margin:0}
 }
 </style>
 </head>
