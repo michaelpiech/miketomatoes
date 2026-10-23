@@ -38,13 +38,14 @@ a{color:inherit;text-underline-offset:3px}
 a:hover{color:var(--red)}
 .banner{display:flex;flex-direction:column;justify-content:space-between;min-height:clamp(240px,22.5vw,330px);padding:0 var(--wm-m);background:var(--red);color:var(--banner-ink);overflow:hidden}
 /* The wordmark runs close to the edges (--wm-m); everything else keeps the page margin (--m). */
-.sign{align-self:flex-end;margin:18px calc(var(--m) - var(--wm-m)) 0 0;max-width:min(330px,72vw);padding:6px 12px 8px;background:#161514;border:4px solid var(--banner-ink);outline:2px solid var(--ink);transform:rotate(-1.2deg)}
-.sign-row{display:flex;flex-wrap:wrap;justify-content:center;padding:5px 0 4px;border-bottom:2px solid #050505;box-shadow:0 1px 0 #34302C}
-.sign-row:last-child{border-bottom:0;box-shadow:none}
-.l{display:inline-block;min-width:.6em;margin:0 1px;text-align:center;font-weight:800;font-variation-settings:"wdth" 78;font-size:clamp(14px,1.45vw,20px);line-height:1;color:#F4F1EA;transform:translateY(var(--y,0)) rotate(var(--r,0deg))}
-.l.flip{transform:translateY(var(--y,0)) rotate(calc(180deg + var(--r,0deg)))}
-.sp{display:inline-block;width:.55em}
-.sign-head .l{color:#FF3B2B}
+/* Cinema marquee: a lit white panel in a black frame, letters on rails, header row in red. */
+.sign{align-self:flex-end;margin:16px calc(var(--m) - var(--wm-m)) 0 0;max-width:min(230px,62vw);padding:2px 9px 3px;background:#FBF8EE;border:3px solid var(--ink);box-shadow:0 0 0 2px var(--banner-ink)}
+.sign-row{display:flex;flex-wrap:wrap;justify-content:center;padding:3px 0 2px;border-bottom:1px solid #C9C2B4}
+.sign-row:last-child{border-bottom:0}
+.l{display:inline-block;min-width:.56em;margin:0 .5px;text-align:center;font-weight:800;font-variation-settings:"wdth" 74;font-size:clamp(11px,1vw,14px);line-height:1;color:#141312}
+.l.flip{transform:rotate(180deg)}
+.sp{display:inline-block;width:.45em}
+.sign-head .l{color:var(--red)}
 .wm{margin:12px 0 -0.3em;font-family:Shrikhand,"Arial Black",sans-serif;font-weight:400;font-size:calc((100vw - 2 * var(--wm-m)) / 8.9);line-height:1;letter-spacing:-.02em;text-transform:uppercase;white-space:nowrap;text-shadow:.045em .045em 0 var(--ink)}
 .wm span{display:inline-block}
 html.js .wm:not(.ready){visibility:hidden}
@@ -131,39 +132,37 @@ main{position:relative;z-index:1;margin-top:-1px;padding:25px var(--m) 72px;back
   const title = titles[day % titles.length];
   let seed = (day % 233280) + 1;
   const rand = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
-  const SWAPS = { I: '1', O: '0', S: '5', E: '3', B: '8', G: '6', Z: '2', A: '4' };
-  const FLIPS = { W: 'M', M: 'W' };
-  const set = (row, text, swapRate) => {
-    for (const ch of text.toUpperCase()) {
-      const tile = document.createElement('span');
-      if (ch === ' ') { tile.className = 'sp'; row.append(tile); continue; }
-      tile.className = 'l';
-      let shown = ch;
-      if (rand() < swapRate) {
-        if (SWAPS[ch]) shown = SWAPS[ch];
-        else if (FLIPS[ch]) { shown = FLIPS[ch]; tile.classList.add('flip'); }
-      }
-      tile.textContent = shown;
-      tile.style.setProperty('--r', ((rand() - 0.5) * 7).toFixed(1) + 'deg');
-      tile.style.setProperty('--y', ((rand() - 0.5) * 3).toFixed(1) + 'px');
-      row.append(tile);
-    }
-  };
+  const SWAPS = { O: '0', I: '1', S: '5', W: 'M', M: 'W' };
   const head = document.querySelector('.sign-head');
-  set(head, head.dataset.text, 0.5);
   const lines = [];
-  for (const word of title.split(' ')) {
+  for (const word of title.toUpperCase().split(' ')) {
     const last = lines[lines.length - 1];
-    if (last && (last + ' ' + word).length <= 14) lines[lines.length - 1] = last + ' ' + word;
+    if (last && (last + ' ' + word).length <= 16) lines[lines.length - 1] = last + ' ' + word;
     else lines.push(word);
   }
-  board.replaceChildren();
-  for (const line of lines) {
-    const row = document.createElement('div');
-    row.className = 'sign-row';
-    set(row, line, 0.4);
-    board.append(row);
-  }
+  const rows = [{ el: head, text: head.dataset.text.toUpperCase() }].concat(lines.map((text) => {
+    const el = document.createElement('div');
+    el.className = 'sign-row';
+    return { el, text };
+  }));
+  const spots = [];
+  rows.forEach((row, r) => [...row.text].forEach((ch, i) => { if (SWAPS[ch]) spots.push(r + ':' + i); }));
+  const swapped = new Set();
+  for (let n = Math.min(2, spots.length); n > 0; n--) swapped.add(spots.splice(Math.floor(rand() * spots.length), 1)[0]);
+  rows.forEach((row, r) => {
+    [...row.text].forEach((ch, i) => {
+      const tile = document.createElement('span');
+      if (ch === ' ') { tile.className = 'sp'; row.el.append(tile); return; }
+      tile.className = 'l';
+      tile.textContent = ch;
+      if (swapped.has(r + ':' + i)) {
+        tile.textContent = SWAPS[ch];
+        if (ch === 'W' || ch === 'M') tile.classList.add('flip');
+      }
+      row.el.append(tile);
+    });
+  });
+  board.replaceChildren(...rows.slice(1).map((row) => row.el));
   board.closest('.sign').setAttribute('aria-label', 'Primetime: ' + title);
 })();
 </script>
