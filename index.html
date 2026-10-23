@@ -53,7 +53,7 @@ a:hover{color:var(--red)}
 .banner{display:flex;flex-direction:column;justify-content:space-between;min-height:clamp(240px,22.5vw,330px);padding:0 var(--wm-m);background:var(--red);color:var(--banner-ink);overflow:hidden}
 /* The wordmark runs close to the edges (--wm-m); everything else keeps the page margin (--m). */
 /* Approved clear-card cinema sign, kept small in the banner corner. */
-.banner .mt-marquee{align-self:flex-end;flex:none;width:260px;max-width:calc(100% - 2 * (var(--m) - var(--wm-m)));margin:12px calc(var(--m) - var(--wm-m)) 0 0}
+.banner .mt-marquee{align-self:flex-end;flex:none;width:clamp(120px,13vw,260px);max-width:calc(100% - 2 * (var(--m) - var(--wm-m)));margin:12px calc(var(--m) - var(--wm-m)) 0 0}
 .wm{margin:12px 0 -0.3em;font-family:Shrikhand,"Arial Black",sans-serif;font-weight:400;font-size:calc((100vw - 2 * var(--wm-m)) / 8.9);line-height:1;letter-spacing:-.02em;text-transform:uppercase;white-space:nowrap;text-shadow:.045em .045em 0 var(--ink)}
 .wm span{display:inline-block}
 html.js .wm:not(.ready){visibility:hidden}
@@ -87,8 +87,7 @@ main{position:relative;z-index:1;margin-top:-1px;padding:25px var(--m) 72px;back
   .rv{padding-right:16px}
 }
 @media (max-width:760px){
-  .banner{min-height:200px}
-  .banner .mt-marquee{width:210px}
+  .banner{min-height:160px}
   main{padding:16px var(--m) 56px}
   /* Phone: poster, title and tomato on one line; the quote gets the full width underneath. */
   .row{grid-template-columns:64px minmax(0,1fr) 60px;grid-template-areas:"poster film tomato" "rv rv rv";gap:16px 16px;align-items:center;padding:24px 0}
