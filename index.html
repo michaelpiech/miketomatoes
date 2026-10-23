@@ -32,8 +32,9 @@
 <style>
 :root{--red:#D8281B;--ink:#121212;--paper:#FFFFFF;--banner-ink:#FFF6EC;--mute:#8A8580;--rule:#DEDAD4;--m:clamp(24px,5vw,72px);--wm-m:clamp(12px,1.6vw,28px)}
 *{box-sizing:border-box}
-html{background:var(--paper);overflow-x:clip}
-body{margin:0;color:var(--ink);font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-size:14px;line-height:1.35;-webkit-font-smoothing:antialiased}
+/* The html background only shows in the overscroll bounce: red above the banner, paper below the footer (see the script). */
+html{background:var(--red);overflow-x:clip}
+body{min-height:100vh;background:var(--paper);margin:0;color:var(--ink);font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-size:14px;line-height:1.35;-webkit-font-smoothing:antialiased}
 ::selection{background:var(--red);color:var(--banner-ink)}
 a{color:inherit;text-underline-offset:3px}
 a:hover{color:var(--red)}
@@ -138,6 +139,14 @@ main{position:relative;z-index:1;margin-top:-1px;padding:25px var(--m) 72px;back
     document.fonts.ready.then(fit);
     addEventListener('resize', fit);
   }
+}
+</script>
+<script>
+{
+  const root = document.documentElement;
+  const tint = () => { root.style.backgroundColor = scrollY < (root.scrollHeight - innerHeight) / 2 ? '' : 'var(--paper)'; };
+  addEventListener('scroll', tint, { passive: true });
+  tint();
 }
 </script>
 </body>
