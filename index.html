@@ -48,9 +48,10 @@ html.js .wm:not(.ready){visibility:hidden}
 main{position:relative;z-index:1;margin-top:-1px;padding:25px var(--m) 72px;background:var(--paper)}
 .mh{margin:0;padding:28px 0 10px;border-bottom:2px solid var(--ink);font-size:13px;font-weight:700;color:var(--red)}
 /* The empty first and last columns inset the posters and the tomatoes equally from the rules' ends. */
-.row{display:grid;grid-template-columns:76px 64px minmax(0,1fr) minmax(0,1.7fr) 76px 76px;gap:20px;align-items:center;padding:14px 0;border-bottom:1px solid var(--rule)}
+.row{display:grid;grid-template-columns:76px 72px minmax(0,1fr) minmax(0,1.7fr) 76px 76px;gap:20px;align-items:center;padding:14px 0;border-bottom:1px solid var(--rule)}
 .no{font-weight:600;font-variant-numeric:tabular-nums}
-.poster{display:block;width:64px;aspect-ratio:2/3;object-fit:cover;background:#EEEBE6}
+/* 80s frame: ink contour, cream mat and a hard ink offset, like the wordmark and the marquee trim. */
+.poster{display:block;width:72px;aspect-ratio:2/3;object-fit:cover;padding:3px;border:2px solid var(--ink);background:var(--banner-ink);box-shadow:4px 4px 0 var(--ink)}
 .poster-empty{display:flex;align-items:center;justify-content:center;background:#F1EEE9}
 .poster-empty img{width:62%;opacity:.28;filter:grayscale(1)}
 .film{min-width:0}
@@ -66,10 +67,11 @@ main{position:relative;z-index:1;margin-top:-1px;padding:25px var(--m) 72px;back
 .ft{margin:0 var(--m);padding:20px 0 32px;border-top:2px solid var(--ink);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;font-size:12px;color:var(--mute)}
 @media (max-width:760px){
   .banner{min-height:200px}
+  .banner .mt-marquee{width:210px}
   main{padding:16px var(--m) 56px}
-  .row{grid-template-columns:56px minmax(0,1fr) 56px;grid-template-areas:"poster film tomato" "poster rv tomato";gap:6px 14px;align-items:start}
+  .row{grid-template-columns:60px minmax(0,1fr) 56px;grid-template-areas:"poster film tomato" "poster rv tomato";gap:6px 14px;align-items:start}
   .no{display:none}
-  .poster{grid-area:poster;width:56px}
+  .poster{grid-area:poster;width:60px;padding:2px;box-shadow:3px 3px 0 var(--ink)}
   .film{grid-area:film}
   .film h3{font-size:18px}
   .rv{grid-area:rv;padding-right:10px}
@@ -94,7 +96,7 @@ main{position:relative;z-index:1;margin-top:-1px;padding:25px var(--m) 72px;back
         <span class="no"></span>
         <img class="poster" src="assets/posters/you-can-see-everything-2026.jpg" alt="" loading="lazy">
         <div class="film"><h3>You Can See Everything</h3><span>2026</span></div>
-        <div class="rv"><p>“Three people fight over who can be most manipulative.”</p></div>
+        <div class="rv"><p>“Three people compete to see who can be most manipulative.”</p></div>
         <div class="tomato-cell"><picture><source media="(min-width: 761px)" srcset="assets/ratings/star.svg"><img class="tomato" src="assets/ratings/star-small.svg" alt="Star"></picture></div>
       </article>
       <article class="row">
