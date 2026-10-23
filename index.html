@@ -79,6 +79,7 @@ main{position:relative;z-index:1;margin-top:-1px;padding:25px var(--m) 72px;back
 .tomato{display:block;width:76px;height:76px;margin:-8px 0}
 .empty{font-size:20px;color:var(--mute)}
 .ft{margin:0 var(--m);padding:20px 0 32px;border-top:2px solid var(--ink);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;font-size:12px;color:var(--mute)}
+.ft .pp{margin-left:auto;font-size:10px;text-decoration:none}
 @media (max-width:760px){
   .banner{min-height:200px}
   .banner .mt-marquee{width:210px}
@@ -136,7 +137,7 @@ main{position:relative;z-index:1;margin-top:-1px;padding:25px var(--m) 72px;back
       </article>
     </section>
 </main>
-<footer class="ft"><span>© 2026 MikeTomatoes</span></footer>
+<footer class="ft"><span>© 2026 MikeTomatoes</span><a class="pp" href="privacy.html">Privacy</a></footer>
 <script src="assets/marquee/marquee.js?v=20261023"></script>
 <script>document.querySelectorAll('.mt-marquee').forEach(el => MikeMarquee.mount(el, { title: el.dataset.title }));</script>
 <script>

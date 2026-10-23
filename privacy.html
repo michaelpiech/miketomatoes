@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>privacy · miketomatoes</title>
+<meta name="description" content="Mike's movie log.">
+<meta property="og:title" content="MikeTomatoes">
+<meta name="theme-color" content="#D8281B">
+<link rel="icon" href="assets/icons/star.svg?v=4" type="image/svg+xml">
+<link rel="icon" href="assets/icons/star-48.png?v=4" sizes="48x48" type="image/png">
+<link rel="icon" href="assets/icons/star-32.png?v=4" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/icons/star-16.png?v=4" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=4">
+<script>
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const icon = document.querySelector('link[rel="icon"][type="image/svg+xml"]');
+  const open = icon.href, wink = open.replace('.svg', '-wink.svg');
+  new Image().src = wink;
+  setInterval(() => {
+    icon.href = wink;
+    setTimeout(() => { icon.href = open; }, 220);
+  }, 4500);
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&amp;family=Shrikhand&amp;display=swap">
+<script>document.documentElement.classList.add('js')</script>
+<script>
+if (!/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) && location.protocol !== 'file:') {
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=G-90VP8LYKGS';
+  document.head.append(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  gtag('js', new Date());
+  gtag('config', 'G-90VP8LYKGS');
+}
+</script>
+<style>
+:root{--red:#D8281B;--ink:#121212;--paper:#FFFFFF;--mute:#8A8580;--rule:#DEDAD4;--m:clamp(24px,5vw,72px)}
+*{box-sizing:border-box}
+html{background:var(--paper)}
+body{margin:0;padding:32px var(--m) 72px;color:var(--ink);font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-underline-offset:3px}
+a:hover{color:var(--red)}
+.home{font-family:Shrikhand,"Arial Black",sans-serif;font-size:22px;text-transform:uppercase;color:var(--red);text-decoration:none}
+main{max-width:600px;margin-top:48px}
+h1{margin:0;font-size:28px;font-weight:600;letter-spacing:-.02em}
+.updated{margin:4px 0 0;color:var(--mute);font-size:13px}
+h2{margin:32px 0 6px;padding-top:12px;border-top:1px solid var(--rule);font-size:15px;font-weight:700}
+p,ul{margin:0 0 10px}
+ul{padding-left:18px}
+</style>
+</head>
+<body>
+<a class="home" href="./">MikeTomatoes</a>
+<main>
+  <h1>Privacy</h1>
+  <p class="updated">Updated October 23, 2026</p>
+
+  <h2>This site</h2>
+  <p>MikeTomatoes is a personal movie log. It has no accounts, forms or ads, and nothing is sold.</p>
+
+  <h2>Analytics</h2>
+  <p>This site uses Google Analytics to see how it’s used. Google Analytics sets cookies and collects information such as the pages you view, how long you stay, your approximate location, your device and browser, and the site that sent you. The data is kept for 14 months.</p>
+  <p>Google signals is on. If you’re signed in to Google with ad personalization turned on, Google may associate your visit with your Google account so Analytics can report aggregated demographics and interests (Google Analytics Demographics and Interests reporting). To do this, Google uses first-party cookies, such as the Google Analytics cookies, together with third-party cookies.</p>
+
+  <h2>Your choices</h2>
+  <ul>
+    <li><a href="https://tools.google.com/dlpage/gaoptout" rel="noopener">Google Analytics opt-out add-on</a></li>
+    <li><a href="https://myadcenter.google.com/" rel="noopener">Google ad settings</a></li>
+    <li><a href="https://myactivity.google.com/" rel="noopener">Your Google activity</a></li>
+    <li><a href="https://policies.google.com/technologies/partner-sites" rel="noopener">How Google uses data from sites like this one</a></li>
+  </ul>
+  
+</main>
+</body>
+</html>
