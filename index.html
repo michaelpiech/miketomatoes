@@ -54,7 +54,9 @@ if (!/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) && location.pr
 *{box-sizing:border-box}
 /* The html background only shows in the overscroll bounce: red above the banner, paper below the footer (see the script). */
 html{background:var(--red);overflow-x:clip}
-body{min-height:100vh;background:var(--paper);margin:0;color:var(--ink);font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-size:14px;line-height:1.35;-webkit-font-smoothing:antialiased}
+/* A red block parked above the page top: iOS Safari shows what's above the page during the pull-down bounce, whatever the html background is. */
+body::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:100vh;background:var(--red)}
+body{position:relative;min-height:100vh;background:var(--paper);margin:0;color:var(--ink);font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-size:14px;line-height:1.35;-webkit-font-smoothing:antialiased}
 ::selection{background:var(--red);color:var(--banner-ink)}
 a{color:inherit;text-underline-offset:3px}
 a:hover{color:var(--red)}
